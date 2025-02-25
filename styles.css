@@ -40,5 +40,18 @@ body{
 
 .titulos-conocenos {
   color: purple;
-  text-align: center;
+  text-align: left;
+}
+.definiciones-conocenos {
+  text-align: left; 
+  font-weight: normal; 
+  font-size: medium;
+  font-size: 20px;
+}
+
+.lista-de-valores {
+  text-align: left;
+  font-weight: normal; 
+  font-size: medium;
+  font-size: 20px;
 }
