@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets/animal-track.png">
     <title>Tracker</title>
-    <title>bootstrap</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.3/lux/bootstrap.min.css" integrity="sha512-RI2S7J+KOTIVVh6JxrBRNIxJjIioHORVNow+SSz2OMKsDLG5y/YT6iXEK+R0LlKBo/Uwr1O063yT198V6AZh4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     </title>
@@ -55,7 +54,7 @@
     <h1 class="Título-de-página mt-3 mb-3">Estamos a tu alcance</h1>
     <div class="row">
       <div class="col-6">
-        <form>
+        <form id="cotizacionForm">
           <div class="mb-3">
             <label for="inputnombre" class="form-label">Nombre</label>
             <input type="Name" class="form-control" id="Nombre" aria-describedby="emailHelp" placeholder="Nombre">
@@ -83,7 +82,51 @@
         <img class="img-fluid imagen-contacto" src="/assets/wolfhacker.jpg" alt="">
       </div>
   </div>
+
+    <script>
+  document.getElementById('cotizacionForm').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const nombre = document.getElementById('Nombre').value;
+    const apellido = document.getElementById('Apellido').value;
+    const email = document.getElementById('Email').value;
+    const texto = document.getElementById('Texto').value;
+    const recibirOfertas = document.getElementById('ofertasCheck').checked;
+
+    const cotizacionData = {
+      name: `${nombre} ${apellido}`,
+      email: email,
+      texto: texto,
+    };
+
+    try {
+      
+      const response = await fetch('https://nodeparcial-2.onrender.com/api/cotizaciones', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cotizacionData),
+      });
+
+    
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Gracias por cotizar con nosotros');
  
+        document.getElementById('cotizacionForm').reset();
+      } else {
+        alert('Error al enviar la cotización: ' + data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Hubo un problema al enviar la cotización');
+    }
+  });
+</script>
+
+
   </div>
 </body>
 </html>
